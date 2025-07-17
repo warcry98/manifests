@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: training-operator-v2
+spec:
+  template:
+    spec:
+      containers:
+      - name: training-operator-v2
+        resources:
+          requests:
+            cpu: 1600m
+            memory: 4096Mi
+          limits:
+            cpu: 3200m
+            memory: 8192Mi

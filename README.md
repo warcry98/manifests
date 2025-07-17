@@ -48,6 +48,8 @@ The Kubeflow Manifests repository is organized under three main directories, whi
 
 All components are deployable with `kustomize`. You can choose to deploy the entire Kubeflow platform or individual components.
 
+Build kustomize of mini kubeflow with `python generate_kustomize.py --cpu 4000 --mem 10240`
+
 ## Kubeflow Components Versions
 
 ### Kubeflow Version: Master

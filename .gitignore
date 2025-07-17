@@ -15,3 +15,5 @@
 
 # Scanning reports of trivy
 image_lists/*
+
+.venv

@@ -36,7 +36,7 @@ replacements:
   - fieldPaths:
     - spec.template.spec.containers.0.args.2
     options:
-      delimiter: =
+      delimiter: "="
       index: 1
     select:
       group: apps
@@ -59,7 +59,7 @@ replacements:
   - fieldPaths:
     - spec.template.spec.containers.0.args.3
     options:
-      delimiter: =
+      delimiter: "="
       index: 1
     select:
       group: apps

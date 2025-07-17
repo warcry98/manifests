@@ -1,0 +1,115 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+sortOptions:
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+    - Namespace
+    - ResourceQuota
+    - StorageClass
+    - CustomResourceDefinition
+    - MutatingWebhookConfiguration
+    - ServiceAccount
+    - PodSecurityPolicy
+    - NetworkPolicy
+    - Role
+    - ClusterRole
+    - RoleBinding
+    - ClusterRoleBinding
+    - ConfigMap
+    - Secret
+    - Endpoints
+    - Service
+    - LimitRange
+    - PriorityClass
+    - PersistentVolume
+    - PersistentVolumeClaim
+    - Deployment
+    - StatefulSet
+    - CronJob
+    - PodDisruptionBudget
+    orderLast:
+    - ValidatingWebhookConfiguration
+resources:
+- ../common/cert-manager/base
+- ../common/cert-manager/kubeflow-issuer/base
+- ../common/istio/istio-crds/base
+- ../common/istio/istio-crds/base
+- ../common/istio/istio-namespace/base
+- ../common/istio/istio-install/overlays/oauth2-proxy
+- ../common/oauth2-proxy/overlays/m2m-dex-only
+- ../common/dex/overlays/oauth2-proxy
+- ../common/knative/knative-serving/overlays/gateways
+- ../common/istio/cluster-local-gateway/base
+- ../common/kubeflow-namespace/base
+- ../common/networkpolicies/base
+- ../common/kubeflow-roles/base
+- ../common/istio/kubeflow-istio-resources/base
+- ../applications/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user
+- ./applications/katib/upstream/installs/katib-with-kubeflow
+- ../applications/centraldashboard/overlays/oauth2-proxy
+- ../applications/admission-webhook/upstream/overlays/cert-manager
+- ../applications/jupyter/jupyter-web-app/upstream/overlays/istio
+- ../applications/jupyter/notebook-controller/upstream/overlays/kubeflow
+- ../applications/profiles/pss
+- ../applications/pvcviewer-controller/upstream/base
+- ../applications/volumes-web-app/upstream/overlays/istio
+- ../applications/training-operator/upstream/overlays/kubeflow
+- ../common/user-namespace/base
+- ../applications/kserve/kserve
+- ../applications/kserve/models-web-app/overlays/kubeflow
+patchesStrategicMerge:
+- ../patches/pipeline/ml-pipeline-ui.yaml
+- ../patches/pipeline/kubeflow-pipelines-profile-controller.yaml
+- ../patches/pipeline/ml-pipeline-scheduledworkflow.yaml
+- ../patches/pipeline/ml-pipeline.yaml
+- ../patches/pipeline/ml-pipeline-visualizationserver.yaml
+- ../patches/pipeline/ml-pipeline-viewer-crd.yaml
+- ../patches/pipeline/ml-pipeline-persistenceagent.yaml
+- ../patches/core/model-registry-ui.yaml
+- ../patches/core/katib-ui.yaml
+- ../patches/core/cluster-jwks-proxy.yaml
+- ../patches/core/deployment.yaml
+- ../patches/core/centraldashboard.yaml
+- ../patches/core/metadata-postgres-db.yaml
+- ../patches/core/controller-manager.yaml
+- ../patches/core/net-istio-controller.yaml
+- ../patches/core/kserve-models-web-app.yaml
+- ../patches/core/katib-controller.yaml
+- ../patches/core/cert-manager-cainjector.yaml
+- ../patches/core/katib-postgres.yaml
+- ../patches/core/metadata-writer.yaml
+- ../patches/core/httpbin.yaml
+- ../patches/core/oauth2-proxy.yaml
+- ../patches/core/istiod.yaml
+- ../patches/core/activator.yaml
+- ../patches/core/prometheus.yaml
+- ../patches/core/cache-deployer-deployment.yaml
+- ../patches/core/cache-server.yaml
+- ../patches/core/spark-operator-controller.yaml
+- ../patches/core/mysql.yaml
+- ../patches/core/cluster-local-gateway.yaml
+- ../patches/core/workflow-controller.yaml
+- ../patches/core/argo-server.yaml
+- ../patches/core/kserve-controller-manager.yaml
+- ../patches/core/grafana.yaml
+- ../patches/core/dex.yaml
+- ../patches/core/postgres.yaml
+- ../patches/core/*.yaml
+- ../patches/core/mt-broker-filter.yaml
+- ../patches/core/eventing-controller.yaml
+- ../patches/core/model-registry-db.yaml
+- ../patches/core/metadata-envoy-deployment.yaml
+- ../patches/core/placeholder.yaml
+- ../patches/core/katib-db-manager.yaml
+- ../patches/core/metadata-grpc-deployment.yaml
+- ../patches/core/istio-ingressgateway.yaml
+- ../patches/core/imc-controller.yaml
+- ../patches/core/minio.yaml
+- ../patches/core/cloudsqlproxy.yaml
+- ../patches/core/model-registry-deployment.yaml
+- ../patches/core/metadata-db.yaml
+- ../patches/core/proxy-agent.yaml
+- ../patches/core/katib-mysql.yaml
+- ../patches/training-operator/training-operator.yaml
+- ../patches/training-operator/training-operator-v2.yaml
