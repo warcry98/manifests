@@ -162,7 +162,7 @@ def write_kustomization():
         "patchesStrategicMerge": []
     }
     for patch in glob.glob("mini-kubeflow/patches/**/*.yaml", recursive=True):
-        kustomization["patchesStrategicMerge"].append(patch)
+        kustomization["patchesStrategicMerge"].append(patch.replace("mini-kubeflow/", ""))
     with open("mini-kubeflow/kustomization.yaml", "w") as f:
         yaml_loader.dump(kustomization, f)
 
