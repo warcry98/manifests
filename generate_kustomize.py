@@ -67,7 +67,7 @@ def patch_deployment(name, cpu, mem):
     }
 
 def write_patch(name, data, category):
-    out_path = Path(f"patches/{category}")
+    out_path = Path(f"mini-kubeflow/patches/{category}")
     out_path.mkdir(parents=True, exist_ok=True)
     with open(out_path / f"{name}.yaml", 'w') as f:
         yaml_loader.dump(data, f)
@@ -114,7 +114,6 @@ def write_kustomization():
             # Cert-Manager
             "../common/cert-manager/base",
             "../common/cert-manager/kubeflow-issuer/base",
-            "../common/istio/istio-crds/base",
             # Istio
             "../common/istio/istio-crds/base",
             "../common/istio/istio-namespace/base",
@@ -137,7 +136,7 @@ def write_kustomization():
             # Kubeflow Pipelines
             "../applications/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user",
             # Katib
-            "./applications/katib/upstream/installs/katib-with-kubeflow",
+            "../applications/katib/upstream/installs/katib-with-kubeflow",
             # Central Dashboard
             "../applications/centraldashboard/overlays/oauth2-proxy",
             # Admission Webhook
@@ -162,8 +161,8 @@ def write_kustomization():
         ],
         "patchesStrategicMerge": []
     }
-    for patch in glob.glob("patches/**/*.yaml", recursive=True):
-        kustomization["patchesStrategicMerge"].append(f"../{patch}")
+    for patch in glob.glob("mini-kubeflow/patches/**/*.yaml", recursive=True):
+        kustomization["patchesStrategicMerge"].append(patch)
     with open("mini-kubeflow/kustomization.yaml", "w") as f:
         yaml_loader.dump(kustomization, f)
 
